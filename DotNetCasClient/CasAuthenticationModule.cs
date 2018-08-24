@@ -144,6 +144,9 @@ namespace DotNetCasClient
                 CasAuthentication.ProcessTicketValidation();
             }
 
+            // if user is allready authenticated, we don't process the request
+            if (context.User != null && context.User.Identity != null && context.User.Identity.IsAuthenticated) return;
+
             logger.Debug("Starting AuthenticateRequest for " + request.RawUrl);
             CasAuthentication.ProcessRequestAuthentication();
             logger.Debug("Ending AuthenticateRequest for " + request.RawUrl);
