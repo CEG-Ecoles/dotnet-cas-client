@@ -145,6 +145,9 @@ namespace DotNetCasClient
             }
 
             // if user is allready authenticated, we don't process the request
+            // Problème, avec ce test, toutes les requêtes, qu'elles soient CAS ou non-CAS ne sont plus vérifiées
+            // Une solution serait d'essayer de gérer un mode (CAS | non-CAS) en mettant quelque chose dans
+            // FormsAuthenticationTicket.UserData de spécifique à la session en mode non-CAS...
             if (context.User != null && context.User.Identity != null && context.User.Identity.IsAuthenticated) return;
 
             logger.Debug("Starting AuthenticateRequest for " + request.RawUrl);
